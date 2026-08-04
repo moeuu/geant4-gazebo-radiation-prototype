@@ -4,7 +4,7 @@
   <version>0.1.0</version>
   <description>Geant4×Gazebo: /odom と /g4/edep から 2D ヒートマップ(OccupancyGrid)を生成</description>
 
-  <maintainer email="you@example.com">g4_mapper_maintainer</maintainer>
+  <maintainer email="moeuu@users.noreply.github.com">Eiji Morita</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_python</buildtool_depend>

@@ -56,8 +56,7 @@
         <visual name="mesh_vis">
           <geometry>
             <mesh>
-              <!-- そのままでも可。安定させるなら file:// を付けても良い -->
-              <uri>file:///home/morita/g4_ros_ws/src/g4_bringup/worlds/world_demo.obj</uri>
+              <uri>world_demo.obj</uri>
               <scale>100 100 100</scale>
             </mesh>
           </geometry>
@@ -73,7 +72,7 @@
         <collision name="mesh_col">
           <geometry>
             <mesh>
-              <uri>file:///home/morita/g4_ros_ws/src/g4_bringup/worlds/world_demo.obj</uri>
+              <uri>world_demo.obj</uri>
               <scale>100 100 100</scale>
             </mesh>
           </geometry>

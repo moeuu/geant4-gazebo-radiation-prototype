@@ -18,9 +18,9 @@ measurement_sweep.py
 使用方法:
 
 ```
-ros2 run g4_bringup measurement_sweep.py --ros-args \
+ros2 run g4_bringup measurement_sweep --ros-args \
   -p rotation_angles_deg:="[0,90,180,270,360,450,540,630]" \
-  -p csv_path:="/home/ユーザー名/g4_results/measurement.csv" \
+  -p csv_path:="results/measurement.csv" \
   -p source_parameters:="[3.5, 3.5, 0.8, 100.0]" \
   -p measure_timeout:=5.0
 ```

@@ -5,7 +5,7 @@
 robot_measurement_node.py
 
 Gazebo上の移動ロボットを計測点へ移動させ、各点で遮蔽体角度を順に変えつつ
-STEP2 の新インタフェース:
+次の計測インタフェース:
   - /measurement_request (g4_interfaces/MeasurementRequest)
   - /g4/measure          (g4_interfaces/Measurement サービス, 任意)
 を用いて計測をトリガするノード。
@@ -104,15 +104,15 @@ class RobotMeasurementNode(Node):
         super().__init__('robot_measurement_node')
 
         # ---- Parameters ----
-        self.declare_parameter('waypoints_yaml', '')   # ← 空文字
-        self.declare_parameter('waypoints_flat', [])   # ← 空リスト
-        self.declare_parameter('rotation_angles', [])  # ← 空リスト
+        self.declare_parameter('waypoints_yaml', '')
+        self.declare_parameter('waypoints_flat', [])
+        self.declare_parameter('rotation_angles', [])
 
         self.declare_parameter('linear_speed', 0.5)
         self.declare_parameter('angular_speed', 1.0)
         self.declare_parameter('pos_tolerance', 0.05)
         self.declare_parameter('measure_delay', 2.0)
-        # ★ use_sim_time は Jazzy で既に宣言済みの場合があるため、ここでは宣言しない
+        # use_sim_time may already be declared by rclpy on Jazzy.
 
         waypoints_yaml = self.get_parameter('waypoints_yaml').value
         waypoints_flat = self.get_parameter('waypoints_flat').value
@@ -223,7 +223,7 @@ class RobotMeasurementNode(Node):
             self.get_logger().info(f'Move to next waypoint {self.idx_wp}')
             return
 
-        # 角度[deg] → [rad]（STEP2の msg はラジアン）
+        # 角度[deg] → [rad]（メッセージはラジアン）
         rot_deg = float(self.rot_deg[self.idx_rot])
         rot_rad = math.radians(rot_deg)
 

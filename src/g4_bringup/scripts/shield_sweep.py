@@ -8,18 +8,17 @@ shield_sweep.py  (param-driven, sync wait, Float64)
 - 結果をCSV保存＋端末表示
 
 実行:
-  /usr/bin/python3 /home/morita/g4_ros_ws/src/g4_bringup/scripts/shield_sweep.py
+  python3 src/g4_bringup/scripts/shield_sweep.py
 
 ROS パラメータ:
   rotation_angles_deg: double[]  既定 [0,90,180,270,360,450,540,630]
   measure_timeout:     double    既定 2.0   # /g4/edep を待つ上限
-  csv_path:            string    既定 /home/morita/g4_ros_ws/results/shield_sweep.csv
+  csv_path:            string    既定 results/shield_sweep.csv
   param_node:          string    既定 "g4_odom_subscriber"  # geant4_embed_node の名前
   edep_topic:          string    既定 "/g4/edep"
 """
 
 import os
-import math
 import csv
 import time
 from typing import Optional, List, Tuple
@@ -48,7 +47,7 @@ class ShieldSweep(Node):
         self.declare_parameter('rotation_angles_deg',
                                [0.0, 90.0, 180.0, 270.0, 360.0, 450.0, 540.0, 630.0])
         self.declare_parameter('measure_timeout', 2.0)
-        self.declare_parameter('csv_path', '/home/morita/g4_ros_ws/results/shield_sweep.csv')
+        self.declare_parameter('csv_path', 'results/shield_sweep.csv')
         self.declare_parameter('param_node', 'g4_odom_subscriber')
         self.declare_parameter('edep_topic', '/g4/edep')
 

@@ -1,4 +1,4 @@
-#include "sim_shared_multi.hpp"  // ★ ここを sim_shared.hpp から置き換え
+#include "sim_shared_multi.hpp"
 // 共有変数の実体定義
 
 std::atomic<long>   g_pending_events{0};
@@ -9,7 +9,7 @@ std::atomic<double> g_yaw_rad{0.0};
 std::atomic<int>    g_particle_pdg{-1};
 std::atomic<double> g_last_edep_MeV{0.0};
 
-// 追加パラメータ実体（単一線源互換）
+// Parameters retained for single-source compatibility.
 std::atomic<double> g_source_x{0.0};
 std::atomic<double> g_source_y{0.0};
 std::atomic<double> g_source_z{0.0};

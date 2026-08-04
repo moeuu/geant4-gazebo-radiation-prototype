@@ -4,7 +4,7 @@ package_name = 'g4_viz'
 
 setup(
     name=package_name,
-    version='0.0.1',
+    version='0.1.0',
     packages=[package_name],
     data_files=[
         # ament 索引用
@@ -25,10 +25,10 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='g4',
-    maintainer_email='noreply@example.com',
+    maintainer='Eiji Morita',
+    maintainer_email='moeuu@users.noreply.github.com',
     description='Edep plot/hist/grid visualization nodes and launch files',
-    license='Apache-2.0',
+    license='MIT',
     entry_points={
         'console_scripts': [
             # 実行ファイル名 = モジュール:main

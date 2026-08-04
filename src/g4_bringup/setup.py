@@ -1,22 +1,21 @@
-from setuptools import setup
 from glob import glob
-from pathlib import Path
 import os
+from pathlib import Path
+
+from setuptools import setup
 
 package_name = 'g4_bringup'
 
 data_files = [
-    # ament インデックスの登録
     ('share/ament_index/resource_index/packages', [os.path.join('resource', package_name)]),
-    # マニフェスト
     (f'share/{package_name}', ['package.xml']),
-    # launch / robots / worlds を share に入れる（← ここが重要）
+    (f'share/{package_name}/config', glob('config/*.yaml')),
     (f'share/{package_name}/launch', glob('launch/*.launch.py')),
+    (f'share/{package_name}/models', glob('models/*.sdf')),
     (f'share/{package_name}/robots', glob('robots/*.sdf')),
-    (f'share/{package_name}/worlds', glob('worlds/*.sdf')),
+    (f'share/{package_name}/worlds', glob('worlds/*')),
 ]
 
-# Python パッケージディレクトリが無い場合でも build 通るように存在チェック
 packages = [package_name] if Path(package_name).is_dir() else []
 
 setup(
@@ -26,17 +25,16 @@ setup(
     data_files=data_files,
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='Your Name',
-    maintainer_email='you@example.com',
+    maintainer='Eiji Morita',
+    maintainer_email='moeuu@users.noreply.github.com',
     description='One-command bringup for Gazebo (headless), ros_gz bridge, Geant4 node, and viz nodes.',
-    license='Apache-2.0',
+    license='MIT',
     entry_points={
         'console_scripts': [
             'robot_measurement_node = g4_bringup.robot_measurement_node:main',
             'source_spawner_node = g4_bringup.source_spawner_node:main',
-            'measurement_sweep = g4_bringup.measurement_sweep:main',  # 追加
+            'measurement_sweep = g4_bringup.measurement_sweep:main',
             'measurement_sweep_edep = g4_bringup.measurement_sweep_edep:main',
         ],
     },
 )
-
