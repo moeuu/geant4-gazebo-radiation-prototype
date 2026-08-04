@@ -13,7 +13,7 @@ Example parameter YAML snippet:
 
 ```yaml
 source.positions: [1.0, 0.0, 0.5, 2.0, -1.0, 0.5]
-sdf_file: "/home/user/g4_ws/src/g4_bringup/models/cs137_sphere.sdf"
+sdf_file: "/path/to/custom_source_model.sdf"
 ```
 
 This node is intended to be launched alongside Gazebo after the world

@@ -3,7 +3,7 @@
 
 #include <G4VUserDetectorConstruction.hh>
 #include <G4ThreeVector.hh>
-#include <G4RotationMatrix.hh>  // ★ 前方宣言ではなく正式ヘッダをインクルード
+#include <G4RotationMatrix.hh>
 
 class G4LogicalVolume;
 class G4PVPlacement;

@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-measurement_bringup_with_spawn_diffbot.launch.py
-
-このローンチは `measurement_bringup.launch.py` の改良版で、
-DiffBot をスポーンするかどうかを起動引数で切り替えられるようにしたものです。
+"""Integrated launch file for the legacy Geant4/Gazebo prototype.
 
 Gazebo（サーバ/GUI）+ DiffBotスポーン（任意）+ ros_gz_bridge +
 Geant4埋め込みノード + （任意）ロボット計測ノード + 可視化 (g4_viz) を一括起動します。
@@ -16,8 +12,6 @@ Geant4埋め込みノード + （任意）ロボット計測ノード + 可視�
   * `spawn_diffbot` 引数で DiffBot をワールドにスポーンするか切り替えできます
   * `/cmd_vel` ブリッジは ROS→GZ 片方向のみ（`geometry_msgs/msg/Twist]gz.msgs.Twist`）
 
-このファイルは元の `measurement_bringup.launch.py` をベースにしており、
-DiffBot のスポーンを有効／無効にするためのオプションを追加しています。
 """
 
 import os
@@ -287,7 +281,7 @@ def generate_launch_description() -> LaunchDescription:
     plot_arg = _arg('plot', 'true', 'enable plotter')
     hist_arg = _arg('hist', 'true', 'enable histogram')
     grid_arg = _arg('grid', 'true', 'enable occupancy grid')
-    csv_dir_default = os.path.join(os.environ.get('HOME', ''), 'g4_ros_ws', 'results')
+    csv_dir_default = os.path.join(os.getcwd(), 'results')
     csv_dir_arg = _arg('csv_dir', csv_dir_default, 'CSV output dir')
     res_arg = _arg('resolution_m', '0.25', 'grid resolution [m]')
     rng_arg = _arg('range_m', '10.0', 'grid range [m]')

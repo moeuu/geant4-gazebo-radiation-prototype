@@ -12,7 +12,6 @@ from launch.actions import (
 )
 from launch.substitutions import (
     LaunchConfiguration,
-    EnvironmentVariable,
     TextSubstitution,
 )
 from launch.conditions import IfCondition, UnlessCondition
@@ -48,7 +47,7 @@ def generate_launch_description():
     grid_arg = DeclareLaunchArgument('grid', default_value='true')
     csv_dir_arg = DeclareLaunchArgument(
         'csv_dir',
-        default_value=TextSubstitution(text=os.path.join(os.environ.get('HOME', ''), 'g4_ros_ws', 'results'))
+        default_value=TextSubstitution(text=os.path.join(os.getcwd(), 'results'))
     )
     resolution_arg = DeclareLaunchArgument('resolution_m', default_value='0.25')
     range_arg      = DeclareLaunchArgument('range_m',      default_value='10.0')
@@ -109,7 +108,7 @@ def generate_launch_description():
         actions=[ExecuteProcess(cmd=['bash', '-lc', spawn_diffbot_cmd], output='screen')]
     )
 
-    # ★ ここを修正：with_cov と plain の両方をブリッジ
+    # Bridge both covariance and plain odometry topics.
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -192,4 +191,3 @@ def generate_launch_description():
         include_hist,
         include_grid,
     ])
-

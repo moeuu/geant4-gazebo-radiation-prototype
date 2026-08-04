@@ -28,7 +28,7 @@ add_executable(geant4_embed_node
   src/geant4/ActionInitialization.cc
   src/geant4/PrimaryGeneratorAction.cc
   src/geant4/EventAction.cc
-  src/geant4/Measurement.cpp    # 追加：測定用ファイル
+  src/geant4/Measurement.cpp
 )
 
 target_link_libraries(geant4_embed_node

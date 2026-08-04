@@ -46,7 +46,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
   // --- Shield: 鉛の 1/8 球殻（TVL ≈ 22 mm）
   const double shieldThickness = 0.022 * m; // 22 mm
   auto* shieldMat   = nist->FindOrBuildMaterial("G4_Pb");
-  // ★ solidShield は1回だけ宣言
+  // Create the shield solid once and reuse it below.
   auto* solidShield = new G4Sphere("ShieldShell",
                                    detRadius, detRadius + shieldThickness,
                                    0.0 * deg, 90.0 * deg,   // φ: 0–90°
