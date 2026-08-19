@@ -3,14 +3,12 @@
 
 """Integrated launch file for the legacy Geant4/Gazebo prototype.
 
-Gazebo（サーバ/GUI）+ DiffBotスポーン（任意）+ ros_gz_bridge +
-Geant4埋め込みノード + （任意）ロボット計測ノード + 可視化 (g4_viz) を一括起動します。
+Starts Gazebo, an optional DiffBot, the ROS/Gazebo bridge, the embedded
+Geant4 node, optional autonomous measurement, and the g4_viz visualizers.
 
-ポイント：
-  * `enable_autonomy=false` なら `robot_measurement_node` を起動しません（teleop 用）
-  * `enable_autonomy=true` なら `robot_measurement_node` の `/cmd_vel` を `/cmd_vel_auto` にリマップします
-  * `spawn_diffbot` 引数で DiffBot をワールドにスポーンするか切り替えできます
-  * `/cmd_vel` ブリッジは ROS→GZ 片方向のみ（`geometry_msgs/msg/Twist]gz.msgs.Twist`）
+When autonomy is enabled, robot_measurement_node publishes `/cmd_vel`, which
+the one-way ROS-to-Gazebo bridge consumes. With autonomy disabled, another ROS
+node (for example, teleoperation) can publish the same topic instead.
 
 """
 
@@ -32,6 +30,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, TextSubstitution
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
+from g4_bringup.output_paths import default_results_dir
 
 # ---------- utils ----------
 
@@ -166,7 +165,7 @@ def _opaque_setup(context, *args, **kwargs):
 
     nodes = [gz_server, gz_gui, spawn_diffbot, bridge, geant4_node]
 
-    # （任意）ロボット計測ノード（自律時のみ起動。/cmd_vel→/cmd_vel_auto に隔離）
+    # Optional autonomous measurement node. Its /cmd_vel output feeds the bridge above.
     if _as_bool(LC('enable_autonomy')):
         rm_params: Dict[str, Any] = {
             'use_sim_time': True,
@@ -192,7 +191,6 @@ def _opaque_setup(context, *args, **kwargs):
             name='robot_measurement_node',
             output='screen',
             parameters=[rm_params],
-            remappings=[('/cmd_vel', '/cmd_vel_auto')],
         )
         nodes.append(robot_measure_node)
 
@@ -281,7 +279,7 @@ def generate_launch_description() -> LaunchDescription:
     plot_arg = _arg('plot', 'true', 'enable plotter')
     hist_arg = _arg('hist', 'true', 'enable histogram')
     grid_arg = _arg('grid', 'true', 'enable occupancy grid')
-    csv_dir_default = os.path.join(os.getcwd(), 'results')
+    csv_dir_default = default_results_dir()
     csv_dir_arg = _arg('csv_dir', csv_dir_default, 'CSV output dir')
     res_arg = _arg('resolution_m', '0.25', 'grid resolution [m]')
     rng_arg = _arg('range_m', '10.0', 'grid range [m]')

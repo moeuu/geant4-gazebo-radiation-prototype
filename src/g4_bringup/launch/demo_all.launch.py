@@ -18,6 +18,7 @@ from launch.conditions import IfCondition, UnlessCondition
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 from ament_index_python.packages import get_package_share_directory
+from g4_bringup.output_paths import default_results_dir
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
@@ -47,7 +48,7 @@ def generate_launch_description():
     grid_arg = DeclareLaunchArgument('grid', default_value='true')
     csv_dir_arg = DeclareLaunchArgument(
         'csv_dir',
-        default_value=TextSubstitution(text=os.path.join(os.getcwd(), 'results'))
+        default_value=TextSubstitution(text=default_results_dir())
     )
     resolution_arg = DeclareLaunchArgument('resolution_m', default_value='0.25')
     range_arg      = DeclareLaunchArgument('range_m',      default_value='10.0')
