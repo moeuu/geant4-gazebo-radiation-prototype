@@ -133,7 +133,7 @@ def _opaque_setup(context, *args, **kwargs):
         ],
         remappings=[
             ('/model/diffbot/odometry', '/odom'),
-            ('/cmd_vel', '/model/diffbot/cmd_vel'),
+            ('/model/diffbot/cmd_vel', '/cmd_vel'),
         ],
     )
 
