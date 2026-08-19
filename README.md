@@ -87,7 +87,19 @@ ros2 launch g4_bringup measurement_bringup.launch.py \
 # Disable individual visualizers
 ros2 launch g4_bringup measurement_bringup.launch.py \
   plot:=false hist:=false grid:=true
+
+# Choose an explicit result directory
+ros2 launch g4_bringup measurement_bringup.launch.py \
+  csv_dir:="$PWD/results"
 ```
+
+With autonomy enabled, `robot_measurement_node` publishes directly to
+`/cmd_vel`; the launch file's ROS-to-Gazebo bridge consumes that topic and
+forwards commands to DiffBot. The default visualizer output directory is
+`$XDG_STATE_HOME/geant4-gazebo-radiation-prototype/results` when that variable
+contains a valid absolute path, or
+`~/.local/state/geant4-gazebo-radiation-prototype/results` when
+`XDG_STATE_HOME` is unset. Set `csv_dir` to override it.
 
 The configuration file can also be passed to the measurement node when it is
 run independently:
